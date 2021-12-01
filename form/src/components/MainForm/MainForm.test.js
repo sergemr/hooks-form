@@ -29,6 +29,22 @@ describe('<MainForm />', () => {
   });   
 
   });
+
+  test('Name cannot be blank', async () => {
+    const onClick = jest.fn()
+    
+    const {getByRole,findByRole, findByText,findByLabelText, getByLabelText}=   render(<MainForm onSubmit={onClick}/>)
+    //const pwdInput  = await findByLabelText('password')
+    await  act(async () => {
+     
+      /* fire events that update state */
+      //fireEvent.input(pwdInput, { target: { value: '123' } });  
+      fireEvent.submit(await findByRole('button'))
+      const error  = await findByText('Name is required')
+      expect(error).toBeInTheDocument();
+  });   
+
+  });
   
   
   test('age range', async () => {
